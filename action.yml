@@ -1,6 +1,6 @@
-name: 'Code Coverage Summary'
-author: 'Irongut <murray.dave@outlook.com>'
-description: 'A GitHub Action that reads Cobertura format code coverage files and outputs a text or markdown summary.'
+name: 'Code Coverage Summary For Only Files In PR'
+author: 'Irongut <murray.dave@outlook.com> forked by ChkltLabs <chkltlabs@gmail.com>'
+description: 'A GitHub Action that reads Cobertura format code coverage files and outputs a text or markdown summary, filterable to the current PR'
 branding:
   icon: book-open
   color: purple
