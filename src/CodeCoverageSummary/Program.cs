@@ -46,6 +46,7 @@ namespace CodeCoverageSummary
                                          // if (o.PRFilesOnly)
                                          // {
                                          Console.WriteLine(o);
+                                         
                                          return -2;
                                          // }
 
