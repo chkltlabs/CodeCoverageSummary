@@ -45,8 +45,8 @@ namespace CodeCoverageSummary
                                          //if limiting to PR files, get list now
                                          // if (o.PRFilesOnly)
                                          // {
-                                             Console.WriteLine(o.PRFilesOnlyString);
-                                             return -2;
+                                         Console.WriteLine(o);
+                                         return -2;
                                          // }
 
                                          // parse code coverage file
