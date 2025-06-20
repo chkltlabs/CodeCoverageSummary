@@ -5,7 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <Company>Taranis Software</Company>
-    <Authors>Irongut</Authors>
+    <Authors>Irongut forked by ChkltLabs</Authors>
     <Description>A GitHub Action that reads Cobertura format code coverage files and outputs a text or markdown summary.</Description>
     <Copyright>Copyright © 2021 - 2022 Taranis Software</Copyright>
     <PackageId>Taranis.CodeCoverageSummary</PackageId>

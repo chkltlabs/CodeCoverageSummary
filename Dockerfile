@@ -7,7 +7,7 @@ COPY ["src/CodeCoverageSummary", "CodeCoverageSummary/"]
 RUN dotnet publish CodeCoverageSummary/CodeCoverageSummary.csproj --configuration Release --no-restore --output /publish
 
 # Label the container
-LABEL maintainer="Irongut <murray.dave@outlook.com>"
+LABEL maintainer="Irongut <murray.dave@outlook.com> forked by ChkltLabs <chkltlabs@gmail.com>"
 LABEL repository="https://github.com/chkltlabs/CodeCoverageSummary"
 LABEL homepage="https://github.com/chkltlabs/CodeCoverageSummary"
 

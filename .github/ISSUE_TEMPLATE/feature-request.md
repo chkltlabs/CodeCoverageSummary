@@ -3,7 +3,7 @@ name: Feature Request
 about: Please suggest new or improved features here.
 title: ''
 labels: enhancement
-assignees: irongut
+assignees: chkltlabs
 
 ---
 

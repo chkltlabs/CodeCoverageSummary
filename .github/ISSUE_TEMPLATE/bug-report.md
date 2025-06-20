@@ -3,7 +3,7 @@ name: Bug Report
 about: Please report any bugs here.
 title: ''
 labels: bug
-assignees: irongut
+assignees: chkltlabs
 
 ---
 
