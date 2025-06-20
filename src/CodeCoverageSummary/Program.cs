@@ -47,7 +47,7 @@ namespace CodeCoverageSummary
                                          // {
                                          Console.WriteLine(o);
                                          
-                                         return -2;
+                                         return 0;
                                          // }
 
                                          // parse code coverage file
