@@ -31,6 +31,11 @@ namespace CodeCoverageSummary
         public string HideComplexityString { get; set; }
 
         public bool HideComplexity => HideComplexityString.Equals("true", StringComparison.OrdinalIgnoreCase);
+        
+        [Option(longName: "prfiles", Required = false, HelpText = "Only analyse added/changed files - true or false.", Default = "false")]
+        public string PRFilesOnlyString { get; set; }
+        
+        public bool PRFilesOnly => !PRFilesOnlyString.Equals("false", StringComparison.OrdinalIgnoreCase);
 
         [Option(longName: "indicators", Required = false, HelpText = "Include health indicators in the output - true or false.", Default = "true")]
         public string IndicatorsString { get; set; }

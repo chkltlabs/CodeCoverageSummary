@@ -88,6 +88,11 @@ Output Type - `console` (default), `file` or `both`.
 `both` will output the coverage summary to the Action log and a file as above.
 
 
+### `prfiles`
+
+Only analyse added/changed files - string of filenames or false.
+
+
 ### `thresholds`
 
 Lower and upper threshold percentages for badge and health indicators, lower threshold can also be used to fail the action. Separate the values with a space and enclose them in quotes; default `'50 75'`.
