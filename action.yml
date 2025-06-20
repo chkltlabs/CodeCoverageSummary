@@ -64,5 +64,7 @@ runs:
     - ${{ inputs.indicators }}
     - '--output'
     - ${{ inputs.output }}
+    - '--prfiles'
+    - ${{ inputs.prfiles }}
     - '--thresholds'
     - ${{ inputs.thresholds }}
