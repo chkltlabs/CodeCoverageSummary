@@ -8,8 +8,8 @@ RUN dotnet publish CodeCoverageSummary/CodeCoverageSummary.csproj --configuratio
 
 # Label the container
 LABEL maintainer="Irongut <murray.dave@outlook.com>"
-LABEL repository="https://github.com/irongut/CodeCoverageSummary"
-LABEL homepage="https://github.com/irongut/CodeCoverageSummary"
+LABEL repository="https://github.com/chkltlabs/CodeCoverageSummary"
+LABEL homepage="https://github.com/chkltlabs/CodeCoverageSummary"
 
 # Label as GitHub Action
 LABEL com.github.actions.name="Code Coverage Summary"

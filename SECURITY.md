@@ -22,5 +22,5 @@ Be sure to include a title and clear description and as much relevant informatio
 Please tag the issue with the `Security` label.
 
 
-[issues]: https://github.com/irongut/CodeCoverageSummary/issues
-[new-issue]: https://github.com/irongut/CodeCoverageSummary/issues/new
+[issues]: https://github.com/chkltlabs/CodeCoverageSummary/issues
+[new-issue]: https://github.com/chkltlabs/CodeCoverageSummary/issues/new

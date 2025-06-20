@@ -8,17 +8,17 @@
 &nbsp;
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6292/badge)](https://bestpractices.coreinfrastructure.org/projects/6292)
 &nbsp;
-[![CI Build](https://github.com/irongut/CodeCoverageSummary/actions/workflows/ci-build.yml/badge.svg)](https://github.com/irongut/CodeCoverageSummary/actions/workflows/ci-build.yml)
+[![CI Build](https://github.com/chkltlabs/CodeCoverageSummary/actions/workflows/ci-build.yml/badge.svg)](https://github.com/chkltlabs/CodeCoverageSummary/actions/workflows/ci-build.yml)
 &nbsp;
-[![CodeQL Scan](https://github.com/irongut/CodeCoverageSummary/actions/workflows/codeql-scan.yml/badge.svg)](https://github.com/irongut/CodeCoverageSummary/actions/workflows/codeql-scan.yml)
+[![CodeQL Scan](https://github.com/chkltlabs/CodeCoverageSummary/actions/workflows/codeql-scan.yml/badge.svg)](https://github.com/chkltlabs/CodeCoverageSummary/actions/workflows/codeql-scan.yml)
 
 </div>
 
 A GitHub Action that reads Cobertura format code coverage files from your test suite and outputs a text or markdown summary. This summary can be posted as a Pull Request comment or included in Release Notes by other actions to give you an immediate insight into the health of your code without using a third-party site.
 
-Code Coverage Summary is designed for use with any test framework that outputs coverage in Cobertura XML format including [Coverlet](https://github.com/coverlet-coverage/coverlet), [gcovr](https://github.com/gcovr/gcovr), [simplecov](https://github.com/simplecov-ruby/simplecov) and [MATLAB](https://uk.mathworks.com/help/matlab/ref/matlab.unittest.plugins.codecoverageplugin-class.html). See the [FAQ](https://github.com/irongut/CodeCoverageSummary/wiki/Frequently-Asked-Questions#which-testing-tools-does-ccs-work-with) for more details. If it doesn't work with your tooling please [open an issue][new-issue] to discuss the problem.
+Code Coverage Summary is designed for use with any test framework that outputs coverage in Cobertura XML format including [Coverlet](https://github.com/coverlet-coverage/coverlet), [gcovr](https://github.com/gcovr/gcovr), [simplecov](https://github.com/simplecov-ruby/simplecov) and [MATLAB](https://uk.mathworks.com/help/matlab/ref/matlab.unittest.plugins.codecoverageplugin-class.html). See the [FAQ](https://github.com/chkltlabs/CodeCoverageSummary/wiki/Frequently-Asked-Questions#which-testing-tools-does-ccs-work-with) for more details. If it doesn't work with your tooling please [open an issue][new-issue] to discuss the problem.
 
-Code Coverage Summary is compatible with [StepSecurity Secure Workflows](https://github.com/step-security/secure-workflows) and uses a Docker image that is cryptographically signed using [Sigstore](https://www.sigstore.dev/). For instructions how to verify the Docker image please see the [Wiki](https://github.com/irongut/CodeCoverageSummary/wiki/Verify-the-Docker-Image).
+Code Coverage Summary is compatible with [StepSecurity Secure Workflows](https://github.com/step-security/secure-workflows) and uses a Docker image that is cryptographically signed using [Sigstore](https://www.sigstore.dev/). For instructions how to verify the Docker image please see the [Wiki](https://github.com/chkltlabs/CodeCoverageSummary/wiki/Verify-the-Docker-Image).
 
 **As a Docker based action Code Coverage Summary requires a Linux runner.**
 
@@ -226,5 +226,5 @@ Pull requests that include documentation and relevant updates to README.md are m
 
 Code Coverage Summary is available under the MIT license, see the [LICENSE](LICENSE) file for more info.
 
-[issues]: https://github.com/irongut/CodeCoverageSummary/issues
-[new-issue]: https://github.com/irongut/CodeCoverageSummary/issues/new
+[issues]: https://github.com/chkltlabs/CodeCoverageSummary/issues
+[new-issue]: https://github.com/chkltlabs/CodeCoverageSummary/issues/new
