@@ -36,6 +36,10 @@ inputs:
     description: 'Output Type - console (default), file or both.'
     required: false
     default: 'console'
+  prfiles:
+    description: 'Only analyse added/changed files - string or false.'
+    required: false
+    default: 'false'
   thresholds:
     description: 'Threshold percentages for badge and health indicators, lower threshold can also be used to fail the action.'
     required: false

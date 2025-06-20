@@ -32,7 +32,7 @@ namespace CodeCoverageSummary
 
         public bool HideComplexity => HideComplexityString.Equals("true", StringComparison.OrdinalIgnoreCase);
         
-        [Option(longName: "prfiles", Required = false, HelpText = "Only analyse added/changed files - true or false.", Default = "false")]
+        [Option(longName: "prfiles", Required = false, HelpText = "Only analyse added/changed files - string or false.", Default = "false")]
         public string PRFilesOnlyString { get; set; }
         
         public bool PRFilesOnly => !PRFilesOnlyString.Equals("false", StringComparison.OrdinalIgnoreCase);
