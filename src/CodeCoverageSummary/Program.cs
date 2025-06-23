@@ -41,21 +41,22 @@ namespace CodeCoverageSummary
                                                  return -2; // error
                                              }
                                          }
-                                         
+
+                                         string[]? prFilesArray = null;
                                          //if limiting to PR files, get list now
-                                         // if (o.PRFilesOnly)
-                                         // {
-                                         Console.WriteLine(o.PrFilesString);
-                                         
-                                         return 0;
-                                         // }
+                                         if (o.PrFiles)
+                                         { 
+                                             Console.WriteLine(o.PrFilesString);
+                                             
+                                             prFilesArray = o.PrFilesString.Split(' ').Select(str => str.Trim()).ToArray();
+                                         }
 
                                          // parse code coverage file
                                          CodeSummary summary = new();
                                          foreach (var file in matchingFiles)
                                          {
                                              Console.WriteLine($"Coverage File: {file}");
-                                             summary = ParseTestResults(file, summary);
+                                             summary = ParseTestResults(file, summary, prFilesArray);
                                          }
 
                                          if (summary == null)
@@ -146,7 +147,7 @@ namespace CodeCoverageSummary
                                  _ => -1); // invalid arguments
         }
 
-        private static CodeSummary ParseTestResults(string filename, CodeSummary summary)
+        private static CodeSummary ParseTestResults(string filename, CodeSummary summary, string[]? prFiles = null)
         {
             if (summary == null)
                 return null;
@@ -167,7 +168,7 @@ namespace CodeCoverageSummary
                             where item.Name == "line-rate"
                             select item;
 
-                if (!lineR.Any())
+                if (!lineR.Any() && prFiles != null)
                     throw new Exception("Overall line rate not found");
 
                 summary.LineRate += double.Parse(lineR.First().Value);
@@ -176,7 +177,7 @@ namespace CodeCoverageSummary
                                    where item.Name == "lines-covered"
                                    select item;
 
-                if (!linesCovered.Any())
+                if (!linesCovered.Any() && prFiles != null)
                     throw new Exception("Overall lines covered not found");
 
                 summary.LinesCovered += int.Parse(linesCovered.First().Value);
@@ -185,7 +186,7 @@ namespace CodeCoverageSummary
                                  where item.Name == "lines-valid"
                                  select item;
 
-                if (!linesValid.Any())
+                if (!linesValid.Any() && prFiles != null)
                     throw new Exception("Overall lines valid not found");
 
                 summary.LinesValid += int.Parse(linesValid.First().Value);
@@ -219,18 +220,85 @@ namespace CodeCoverageSummary
                     throw new Exception("No package data found");
 
                 int i = 1;
+                double localLineRate = 0.0;
+                int localLineRateDivisor = 0;
+                int localLinesCovered = 0;
+                int localLinesValid = 0;
                 foreach (var item in packages)
                 {
-                    CodeCoverage packageCoverage = new()
+                    if (prFiles == null)
                     {
-                        Name = string.IsNullOrWhiteSpace(item.Attribute("name")?.Value) ? $"{Path.GetFileNameWithoutExtension(filename)} Package {i}" : item.Attribute("name").Value,
-                        LineRate = double.Parse(item.Attribute("line-rate")?.Value ?? "0"),
-                        BranchRate = double.TryParse(item.Attribute("branch-rate")?.Value ?? "0", out double bRate) ? bRate : 0,
-                        Complexity = double.TryParse(item.Attribute("complexity")?.Value ?? "0", out double complex) ? complex : 0
-                    };
-                    summary.Packages.Add(packageCoverage);
-                    summary.Complexity += packageCoverage.Complexity;
+                        CodeCoverage packageCoverage = new()
+                        {
+                            Name = string.IsNullOrWhiteSpace(item.Attribute("name")?.Value) ? $"{Path.GetFileNameWithoutExtension(filename)} Package {i}" : item.Attribute("name").Value,
+                            LineRate = double.Parse(item.Attribute("line-rate")?.Value ?? "0"),
+                            BranchRate = double.TryParse(item.Attribute("branch-rate")?.Value ?? "0", out double bRate) ? bRate : 0,
+                            Complexity = double.TryParse(item.Attribute("complexity")?.Value ?? "0", out double complex) ? complex : 0
+                        };
+                        summary.Packages.Add(packageCoverage);
+                        summary.Complexity += packageCoverage.Complexity;
+                                            
+                    }
+                    else
+                    {
+                        if (prFiles.Contains(item.Attribute("name")?.Value))
+                        {
+                            CodeCoverage packageCoverage = new()
+                            {
+                                Name = string.IsNullOrWhiteSpace(item.Attribute("name")?.Value)
+                                    ? $"{Path.GetFileNameWithoutExtension(filename)} Package {i}"
+                                    : item.Attribute("name").Value,
+                                LineRate = double.Parse(item.Attribute("line-rate")?.Value ?? "0"),
+                                BranchRate =
+                                    double.TryParse(item.Attribute("branch-rate")?.Value ?? "0", out double bRate)
+                                        ? bRate
+                                        : 0,
+                                Complexity =
+                                    double.TryParse(item.Attribute("complexity")?.Value ?? "0", out double complex)
+                                        ? complex
+                                        : 0
+
+                            };
+                            summary.Packages.Add(packageCoverage);
+                            summary.Complexity += packageCoverage.Complexity;
+
+                            var linesObj = from line in item.Descendants("line")
+                                select line;
+
+                            int[] numsSeen = Array.Empty<int>();
+                            int lineCount = 0;
+                            int lineValidCount = 0;
+                            foreach (var line in linesObj)
+                            {
+                                var lineNum = int.TryParse(line.Attribute("number")?.Value ?? "0", out int num) ? num : 0;
+                                if (!numsSeen.Contains(lineNum))
+                                {
+                                    lineCount++;
+                                    if ((int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit) ? num : 0) != 0)
+                                    {
+                                        lineValidCount++;
+                                    }
+                                    numsSeen.Append(lineNum);
+                                }
+                            }
+                            //total line count
+                            localLinesValid += lineValidCount;
+                            
+                            //total line count where hits != 0
+                            localLinesCovered += lineCount;
+                            
+                            localLineRate += packageCoverage.LineRate;
+                            localLineRateDivisor++;
+                        }
+                    }
                     i++;
+                }
+
+                if (prFiles != null && localLineRateDivisor != 0)
+                {
+                    summary.LinesCovered += localLinesCovered;
+                    summary.LinesValid += localLinesValid;
+                    summary.LineRate += localLineRate /  localLineRateDivisor;
                 }
 
                 return summary;
