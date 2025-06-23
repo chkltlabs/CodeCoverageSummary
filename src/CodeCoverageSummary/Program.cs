@@ -387,7 +387,7 @@ namespace CodeCoverageSummary
             }
             else
             {
-                return "✔";
+                return "✅";
             }
         }
 
