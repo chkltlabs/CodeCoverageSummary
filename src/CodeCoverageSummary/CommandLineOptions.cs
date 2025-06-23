@@ -31,11 +31,6 @@ namespace CodeCoverageSummary
         public string HideComplexityString { get; set; }
 
         public bool HideComplexity => HideComplexityString.Equals("true", StringComparison.OrdinalIgnoreCase);
-        
-        [Option(longName: "prfiles", Required = false, HelpText = "Only analyse added/changed files - string or false.", Default = "false")]
-        public string PrFilesString { get; set; }
-        
-        public bool PrFiles => !PrFilesString.Equals("false", StringComparison.OrdinalIgnoreCase);
 
         [Option(longName: "indicators", Required = false, HelpText = "Include health indicators in the output - true or false.", Default = "true")]
         public string IndicatorsString { get; set; }
@@ -44,6 +39,11 @@ namespace CodeCoverageSummary
 
         [Option(longName: "output", Required = false, HelpText = "Output Type - console, file or both.", Default = "console")]
         public string Output { get; set; }
+        
+        [Option(longName: "prfiles", Required = false, HelpText = "Only analyse added/changed files - string or false.", Default = "false")]
+        public string PrFilesString { get; set; }
+        
+        public bool PrFiles => !PrFilesString.Equals("false", StringComparison.OrdinalIgnoreCase);
 
         [Option(longName: "thresholds", Required = false, HelpText = "Threshold percentages for badge and health indicators, lower threshold can also be used to fail the action.", Default = "50 75")]
         public string Thresholds { get; set; }
