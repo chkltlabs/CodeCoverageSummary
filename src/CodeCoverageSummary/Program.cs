@@ -168,28 +168,40 @@ namespace CodeCoverageSummary
                             where item.Name == "line-rate"
                             select item;
 
-                if (!lineR.Any() && prFiles != null)
+                if (!lineR.Any())
+                {
                     throw new Exception("Overall line rate not found");
-
-                summary.LineRate += double.Parse(lineR.First().Value);
+                }
+                else if (prFiles == null)
+                {
+                    summary.LineRate += double.Parse(lineR.First().Value);
+                }
 
                 var linesCovered = from item in coverage.Attributes()
                                    where item.Name == "lines-covered"
                                    select item;
 
-                if (!linesCovered.Any() && prFiles != null)
+                if (!linesCovered.Any())
+                {
                     throw new Exception("Overall lines covered not found");
-
-                summary.LinesCovered += int.Parse(linesCovered.First().Value);
+                }
+                else if (prFiles == null)
+                {
+                    summary.LinesCovered += int.Parse(linesCovered.First().Value);
+                }
 
                 var linesValid = from item in coverage.Attributes()
                                  where item.Name == "lines-valid"
                                  select item;
 
-                if (!linesValid.Any() && prFiles != null)
+                if (!linesValid.Any())
+                {
                     throw new Exception("Overall lines valid not found");
-
-                summary.LinesValid += int.Parse(linesValid.First().Value);
+                }
+                else if (prFiles == null)
+                {
+                    summary.LinesValid += int.Parse(linesValid.First().Value);
+                }
 
                 var branchR = from item in coverage.Attributes()
                               where item.Name == "branch-rate"
