@@ -277,7 +277,7 @@ namespace CodeCoverageSummary
                             var linesObj = from line in item.Descendants("line")
                                 select line;
 
-                            int[] numsSeen = Array.Empty<int>();
+                            var numsSeen = new List<int>();
                             int lineCount = 0;
                             int lineCoveredCount = 0;
                             foreach (var line in linesObj)
@@ -289,17 +289,11 @@ namespace CodeCoverageSummary
                                     var hits = int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit)
                                         ? hit
                                         : 0;
-                                    Console.WriteLine("line");
-                                    Console.WriteLine(line);
-                                    Console.WriteLine("lineNum");
-                                    Console.WriteLine(lineNum);
-                                    Console.WriteLine("hits");
-                                    Console.WriteLine(hits);
                                     if (hits != 0)
                                     {
                                         lineCoveredCount++;
                                     }
-                                    numsSeen.Append(lineNum);
+                                    numsSeen.Add(lineNum);
                                 }
                             }
                             //total line count
