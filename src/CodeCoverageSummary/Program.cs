@@ -286,7 +286,10 @@ namespace CodeCoverageSummary
                                 if (!numsSeen.Contains(lineNum))
                                 {
                                     lineCount++;
-                                    if ((int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit) ? num : 0) != 0)
+                                    var hits = (int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit)
+                                        ? hit
+                                        : 0);
+                                    if (hits != 0)
                                     {
                                         lineCoveredCount++;
                                     }
