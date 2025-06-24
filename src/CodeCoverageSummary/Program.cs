@@ -279,7 +279,7 @@ namespace CodeCoverageSummary
 
                             int[] numsSeen = Array.Empty<int>();
                             int lineCount = 0;
-                            int lineValidCount = 0;
+                            int lineCoveredCount = 0;
                             foreach (var line in linesObj)
                             {
                                 var lineNum = int.TryParse(line.Attribute("number")?.Value ?? "0", out int num) ? num : 0;
@@ -288,16 +288,16 @@ namespace CodeCoverageSummary
                                     lineCount++;
                                     if ((int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit) ? num : 0) != 0)
                                     {
-                                        lineValidCount++;
+                                        lineCoveredCount++;
                                     }
                                     numsSeen.Append(lineNum);
                                 }
                             }
                             //total line count
-                            localLinesValid += lineValidCount;
+                            localLinesValid += lineCount;
                             
                             //total line count where hits != 0
-                            localLinesCovered += lineCount;
+                            localLinesCovered += lineCoveredCount;
                             
                             localLineRate += packageCoverage.LineRate;
                             localLineRateDivisor++;

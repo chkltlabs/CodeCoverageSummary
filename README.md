@@ -90,7 +90,7 @@ Output Type - `console` (default), `file` or `both`.
 
 ### `prfiles`
 
-Only analyse added/changed files - string of filenames or false.
+Only analyse added/changed files - string of filenames or false. Be sure to check the formatting
 
 
 ### `thresholds`
