@@ -128,7 +128,7 @@ Minimum allowed line rate is 50%
 
 ```yaml
 name: Code Coverage Summary Report
-uses: chkltlabs/CodeCoverageSummary@v1.3.0
+uses: chkltlabs/CodeCoverageSummary@v1
 with:
   filename: coverage.cobertura.xml
 ```
@@ -168,7 +168,7 @@ jobs:
       run: dotnet test src/Example.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Code Coverage Report
-      uses: chkltlabs/CodeCoverageSummary@latest
+      uses: chkltlabs/CodeCoverageSummary@v1
       with:
         filename: coverage/**/coverage.cobertura.xml
         badge: true
