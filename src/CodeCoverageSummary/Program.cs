@@ -313,7 +313,7 @@ namespace CodeCoverageSummary
                 {
                     summary.LinesCovered += localLinesCovered;
                     summary.LinesValid += localLinesValid;
-                    summary.LineRate += localLineRate /  localLineRateDivisor;
+                    summary.LineRate = Math.Round((float) summary.LinesCovered / summary.LinesValid, 0);
                 }
 
                 return summary;
