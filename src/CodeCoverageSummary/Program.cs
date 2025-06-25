@@ -280,30 +280,44 @@ namespace CodeCoverageSummary
                             var numsSeen = new List<int>();
                             int lineCount = 0;
                             int lineCoveredCount = 0;
-                            foreach (var line in linesObj)
+
+                            if (!linesObj.Any())
                             {
-                                var lineNum = int.TryParse(line.Attribute("number")?.Value ?? "0", out int num) ? num : 0;
-                                if (!numsSeen.Contains(lineNum))
-                                {
-                                    lineCount++;
-                                    var hits = int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit)
-                                        ? hit
-                                        : 0;
-                                    if (hits != 0)
-                                    {
-                                        lineCoveredCount++;
-                                    }
-                                    numsSeen.Add(lineNum);
-                                }
+                                //no testable lines found, file should pass not fail
+                                packageCoverage.LineRate = 100;
                             }
-                            //total line count
-                            localLinesValid += lineCount;
-                            
-                            //total line count where hits != 0
-                            localLinesCovered += lineCoveredCount;
-                            
-                            localLineRate += packageCoverage.LineRate;
-                            localLineRateDivisor++;
+                            else
+                            {
+                                //count lines covered and valid
+                                foreach (var line in linesObj)
+                                {
+                                    var lineNum = int.TryParse(line.Attribute("number")?.Value ?? "0", out int num)
+                                        ? num
+                                        : 0;
+                                    if (!numsSeen.Contains(lineNum))
+                                    {
+                                        lineCount++;
+                                        var hits = int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit)
+                                            ? hit
+                                            : 0;
+                                        if (hits != 0)
+                                        {
+                                            lineCoveredCount++;
+                                        }
+
+                                        numsSeen.Add(lineNum);
+                                    }
+                                }
+
+                                //total line count
+                                localLinesValid += lineCount;
+
+                                //total line count where hits != 0
+                                localLinesCovered += lineCoveredCount;
+
+                                localLineRate += packageCoverage.LineRate;
+                                localLineRateDivisor++;
+                            }
                         }
                     }
                     i++;
