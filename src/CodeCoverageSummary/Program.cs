@@ -284,7 +284,7 @@ namespace CodeCoverageSummary
                             if (!linesObj.Any())
                             {
                                 //no testable lines found, file should pass not fail
-                                packageCoverage.LineRate = 100;
+                                packageCoverage.LineRate = 1.0;
                             }
                             else
                             {
@@ -323,7 +323,7 @@ namespace CodeCoverageSummary
                     i++;
                 }
 
-                if (prFiles != null && localLineRateDivisor != 0)
+                if (prFiles != null)
                 {
                     summary.LinesCovered += localLinesCovered;
                     summary.LinesValid += localLinesValid;
