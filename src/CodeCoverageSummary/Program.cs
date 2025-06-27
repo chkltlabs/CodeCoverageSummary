@@ -232,10 +232,10 @@ namespace CodeCoverageSummary
                     throw new Exception("No package data found");
 
                 int i = 1;
-                double localLineRate = 0.0;
-                int localLineRateDivisor = 0;
                 int localLinesCovered = 0;
                 int localLinesValid = 0;
+                int localBranchesCovered = 0;
+                int localBranchesValid = 0;
                 foreach (var item in packages)
                 {
                     if (prFiles == null)
@@ -278,11 +278,6 @@ namespace CodeCoverageSummary
                                 select line;
 
                             var numsSeen = new List<int>();
-                            int lineCount = 0;
-                            int lineCoveredCount = 0;
-                            int localBranchesCovered = 0;
-                            int localBranchesValid = 0;
-
 
                             if (!linesObj.Any())
                             {
@@ -301,13 +296,13 @@ namespace CodeCoverageSummary
                                         : 0;
                                     if (!numsSeen.Contains(lineNum))
                                     {
-                                        lineCount++;
+                                        localLinesValid++;
                                         var hits = int.TryParse(line.Attribute("hits")?.Value ?? "0", out int hit)
                                             ? hit
                                             : 0;
                                         if (hits != 0)
                                         {
-                                            lineCoveredCount++;
+                                            localLinesCovered++;
                                         }
                                         
                                         // Add branch counting
@@ -329,12 +324,6 @@ namespace CodeCoverageSummary
                                         numsSeen.Add(lineNum);
                                     }
                                 }
-
-                                //total line count
-                                localLinesValid += lineCount;
-
-                                //total line count where hits != 0
-                                localLinesCovered += lineCoveredCount;
                             }
                         }
                     }
