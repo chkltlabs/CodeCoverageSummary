@@ -280,11 +280,16 @@ namespace CodeCoverageSummary
                             var numsSeen = new List<int>();
                             int lineCount = 0;
                             int lineCoveredCount = 0;
+                            int localBranchesCovered = 0;
+                            int localBranchesValid = 0;
+
 
                             if (!linesObj.Any())
                             {
                                 //no testable lines found, file should pass not fail
                                 packageCoverage.LineRate = 1.0;
+                                packageCoverage.BranchRate = 1.0;
+
                             }
                             else
                             {
@@ -304,6 +309,22 @@ namespace CodeCoverageSummary
                                         {
                                             lineCoveredCount++;
                                         }
+                                        
+                                        // Add branch counting
+                                        var conditionCovered = int.TryParse(line.Attribute("condition-coverage")?.Value?.Split('%')[0] ?? "0", out int covered)
+                                            ? covered
+                                            : 0;
+                                        if (conditionCovered > 0)
+                                        {
+                                            localBranchesCovered++;
+                                        }
+            
+                                        // If the line has branch data, count it
+                                        if (line.Attribute("condition-coverage") != null)
+                                        {
+                                            localBranchesValid++;
+                                        }
+
 
                                         numsSeen.Add(lineNum);
                                     }
@@ -314,9 +335,6 @@ namespace CodeCoverageSummary
 
                                 //total line count where hits != 0
                                 localLinesCovered += lineCoveredCount;
-
-                                localLineRate += packageCoverage.LineRate;
-                                localLineRateDivisor++;
                             }
                         }
                     }
@@ -330,6 +348,14 @@ namespace CodeCoverageSummary
                     summary.LineRate = summary.LinesValid > 0 
                         ? Math.Round((double)summary.LinesCovered / summary.LinesValid, 2) 
                         : 0;
+                    
+                    // Add branch coverage calculations
+                    summary.BranchesCovered += localBranchesCovered;
+                    summary.BranchesValid += localBranchesValid;
+                    summary.BranchRate = summary.BranchesValid > 0
+                        ? Math.Round((double)summary.BranchesCovered / summary.BranchesValid, 2)
+                        : 0;
+
 
                 }
 
