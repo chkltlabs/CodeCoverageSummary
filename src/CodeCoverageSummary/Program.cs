@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 using Microsoft.Extensions.FileSystemGlobbing;
 using System;
 using System.Collections.Generic;
@@ -59,11 +59,22 @@ namespace CodeCoverageSummary
                                              summary = ParseTestResults(file, summary, prFilesArray);
                                          }
 
-                                         if (summary == null)
-                                             return -2; // error
+                                        if (summary == null)
+                                            return -2; // error
 
                                          summary.LineRate /= matchingFiles.Count();
                                          summary.BranchRate /= matchingFiles.Count();
+
+                                         // 0 covered of 0 possible = nothing to cover, treat as 100% and passing
+                                         if (summary.LinesValid == 0 && summary.LinesCovered == 0)
+                                         {
+                                             summary.LineRate = 1.0;
+                                         }
+
+                                         if (summary.BranchesValid == 0 && summary.BranchesCovered == 0)
+                                         {
+                                             summary.BranchRate = 1.0;
+                                         }
 
                                          if (summary.Packages.Count == 0)
                                          {
